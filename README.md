@@ -9,6 +9,9 @@ CREATE TABLE "COURSE" (
 	"costs"	REAL NOT NULL,
 	"canceled"	BOOLEAN NOT NULL,
 	"when" DATETIME NOT NULL,
+	"duration"	INTEGER NOT NULL,
+	"starting_point"	TEXT NOT NULL,
+	"destination"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
 
