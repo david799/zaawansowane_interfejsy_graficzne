@@ -2,14 +2,14 @@
 
 # Struktura bazy danych
 ```sql
-CREATE TABLE "COURSE" (
+CREATE TABLE COURSE (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"train_id"	INTEGER NOT NULL,
 	"ticket_price"	REAL NOT NULL,
 	"costs"	REAL NOT NULL,
 	"canceled"	BOOLEAN NOT NULL,
-	"when" DATETIME NOT NULL,
-	"duration"	INTEGER NOT NULL,
+	"starts_at"	DATETIME NOT NULL,
+	"ends_at"	DATETIME NOT NULL,
 	"starting_point"	TEXT NOT NULL,
 	"destination"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
