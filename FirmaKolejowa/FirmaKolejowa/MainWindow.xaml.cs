@@ -22,6 +22,10 @@ namespace FirmaKolejowa
     {
         public MainWindow()
         {
+            var train = new Train(true, 5);
+            var database = new CompanyDatabase();
+            database.addTrain(train);
+            var trains = database.getTrains();
             InitializeComponent();
         }
     }
