@@ -62,4 +62,30 @@ namespace FirmaKolejowa
             destination = _destination;
         }
     }
+
+    public class User
+    {
+        public int id;
+        public string nick;
+        public string password;
+        public string name;
+        public string surname;
+
+        public User(string _nick, string _password, string _name, string _surname)
+        {
+            nick = _nick;
+            password = _password;
+            name = _name;
+            surname = _surname;
+        }
+
+        public User(int _id, string _nick, string _password, string _name, string _surname)
+        {
+            id = _id;
+            nick = _nick;
+            password = _password;
+            name = _name;
+            surname = _surname;
+        }
+    }
 }

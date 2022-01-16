@@ -371,5 +371,155 @@ namespace FirmaKolejowa
             return course;
         }
 
+        public void addUser(User user)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    INSERT INTO COURSE ( nick, password, name, surname )
+                    VALUES( $nick, $password, $name, $surname )
+                ";
+
+                command.Parameters.AddWithValue("$nick", user.nick);
+                command.Parameters.AddWithValue("$password", user.password);
+                command.Parameters.AddWithValue("$name", user.name);
+                command.Parameters.AddWithValue("$surname", user.surname);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public void updateUser(User user)
+        {
+            if (user.id == 0)
+                throw new Exception("User id cannot be 0");
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    UPDATE COURSE 
+                    SET nick = $nick,
+                        password = $password, 
+                        name = $name, 
+                        surname = $surname
+                    WHERE id = $id
+                ";
+
+                command.Parameters.AddWithValue("$nick", user.nick);
+                command.Parameters.AddWithValue("$password", user.password);
+                command.Parameters.AddWithValue("$name", user.name);
+                command.Parameters.AddWithValue("$surname", user.surname);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public void deleteUser(User user)
+        {
+            if (user.id == 0)
+                throw new Exception("User id cannot be 0");
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    DELETE FROM USER 
+                    WHERE $id = id
+                ";
+
+                command.Parameters.AddWithValue("$id", user.id);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public List<User> getUsers()
+        {
+            List<User> users = new List<User>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM USER
+                ";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var nick = reader.GetString(1);
+                        var password = reader.GetString(2);
+                        var name = reader.GetString(3);
+                        var surname = reader.GetString(4);
+                        users.Add(new User(id, nick, password, name, surname));
+                    }
+                }
+            }
+            return users;
+        }
+
+        public User getUser(int _id)
+        {
+            User user = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM USER
+                    WHERE id = $id
+                ";
+                command.Parameters.AddWithValue("$id", _id);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var nick = reader.GetString(1);
+                        var password = reader.GetString(2);
+                        var name = reader.GetString(3);
+                        var surname = reader.GetString(4);
+                        user = new User(id, nick, password, name, surname);
+                    }
+                }
+            }
+            return user;
+        }
     }
 }
