@@ -36,8 +36,6 @@ CREATE TABLE "TICKET" (
 	"course_id"	INTEGER NOT NULL,
 	"user_id"	INTEGER NOT NULL,
 	"status"	INTEGER NOT NULL,
-	FOREIGN KEY("user_id") REFERENCES "USER"("id"),
-	FOREIGN KEY("course_id") REFERENCES "COURSE"("id"),
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
 ```
