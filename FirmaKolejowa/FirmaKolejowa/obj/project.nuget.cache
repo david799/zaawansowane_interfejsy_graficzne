@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "XnL7jpAhl6Qj7Qt97rKkzJts+VUznSd/stYt7OZb+bwDwiQyJ8uNEJA7zWdJfbh7R4jlK9d8UA2YzPnJkCfccA==",
+  "dgSpecHash": "mpT/o+U/MKMkabYTrxbOOqI5p9ds1icFYX0EqNKb4It03v4KIMKAr5ISfQKVgBiBeBRpnEg21yABEzlsnRtQPw==",
   "success": true,
   "projectFilePath": "C:\\Users\\s\\Documents\\GitHub\\zaawansowane_interfejsy_graficzne\\FirmaKolejowa\\FirmaKolejowa\\FirmaKolejowa.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\s\\.nuget\\packages\\microsoft.data.sqlite\\6.0.1\\microsoft.data.sqlite.6.0.1.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\microsoft.data.sqlite.core\\6.0.1\\microsoft.data.sqlite.core.6.0.1.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.6\\sqlitepclraw.bundle_e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\sqlitepclraw.core\\2.0.6\\sqlitepclraw.core.2.0.6.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.0.6\\sqlitepclraw.lib.e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.0.6\\sqlitepclraw.provider.e_sqlite3.2.0.6.nupkg.sha512",
+    "C:\\Users\\s\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+  ],
   "logs": []
 }
