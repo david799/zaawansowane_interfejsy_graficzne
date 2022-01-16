@@ -78,9 +78,9 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteTrain(Train train)
+        public void deleteTrain(int id)
         {
-            if (train.id == 0)
+            if (id == 0)
                 throw new Exception("Train id cannot be 0");
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -93,7 +93,7 @@ namespace FirmaKolejowa
                     WHERE id = $id 
                 ";
 
-                command.Parameters.AddWithValue("$id", train.id);
+                command.Parameters.AddWithValue("$id", id);
 
                 try
                 {
@@ -275,9 +275,9 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteCourse(Course course)
+        public void deleteCourse(int id)
         {
-            if (course.id == 0)
+            if (id == 0)
                 throw new Exception("Train id cannot be 0");
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -290,7 +290,7 @@ namespace FirmaKolejowa
                     WHERE $id = id
                 ";
 
-                command.Parameters.AddWithValue("$id", course.id);
+                command.Parameters.AddWithValue("$id", id);
 
                 try
                 {
@@ -380,7 +380,7 @@ namespace FirmaKolejowa
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    INSERT INTO COURSE ( nick, password, name, surname )
+                    INSERT INTO USER ( nick, password, name, surname )
                     VALUES( $nick, $password, $name, $surname )
                 ";
 
@@ -411,7 +411,7 @@ namespace FirmaKolejowa
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    UPDATE COURSE 
+                    UPDATE USER 
                     SET nick = $nick,
                         password = $password, 
                         name = $name, 
@@ -423,6 +423,7 @@ namespace FirmaKolejowa
                 command.Parameters.AddWithValue("$password", user.password);
                 command.Parameters.AddWithValue("$name", user.name);
                 command.Parameters.AddWithValue("$surname", user.surname);
+                command.Parameters.AddWithValue("$id", user.id);
 
                 try
                 {
@@ -435,9 +436,9 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteUser(User user)
+        public void deleteUser(int id)
         {
-            if (user.id == 0)
+            if (id == 0)
                 throw new Exception("User id cannot be 0");
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -450,7 +451,7 @@ namespace FirmaKolejowa
                     WHERE $id = id
                 ";
 
-                command.Parameters.AddWithValue("$id", user.id);
+                command.Parameters.AddWithValue("$id", id);
 
                 try
                 {
@@ -520,6 +521,153 @@ namespace FirmaKolejowa
                 }
             }
             return user;
+        }
+
+        public void addTicket(Ticket ticket)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    INSERT INTO TICKET ( course_id, user_id, status )
+                    VALUES( $course_id, $user_id, $status )
+                ";
+
+                command.Parameters.AddWithValue("$course_id", ticket.course_id);
+                command.Parameters.AddWithValue("$user_id", ticket.user_id);
+                command.Parameters.AddWithValue("$status", ticket.status);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public void updateTicket(Ticket ticket)
+        {
+            if (ticket.id == 0)
+                throw new Exception("Ticket id cannot be 0");
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    UPDATE TICKET 
+                    SET course_id = $course_id,
+                        user_id = $user_id, 
+                        status = $status
+                    WHERE id = $id
+                ";
+
+                command.Parameters.AddWithValue("$course_id", ticket.course_id);
+                command.Parameters.AddWithValue("$user_id", ticket.user_id);
+                command.Parameters.AddWithValue("$status", ticket.status);
+                command.Parameters.AddWithValue("$id", ticket.id);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public void deleteTicket(int id)
+        {
+            if (id == 0)
+                throw new Exception("Ticket id cannot be 0");
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    DELETE FROM TICKET 
+                    WHERE $id = id
+                ";
+
+                command.Parameters.AddWithValue("$id", id);
+
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+        }
+
+        public List<Ticket> getTickets()
+        {
+            List<Ticket> tickets = new List<Ticket>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM TICKET
+                ";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var course_id = reader.GetInt32(1);
+                        var user_id = reader.GetInt32(2);
+                        var status = reader.GetInt32(3);
+                        tickets.Add(new Ticket(id, course_id, user_id, status));
+                    }
+                }
+            }
+            return tickets;
+        }
+
+        public Ticket getTicket(int _id)
+        {
+            Ticket ticket = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM TICKET
+                    WHERE id = $id
+                ";
+                command.Parameters.AddWithValue("$id", _id);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var course_id = reader.GetInt32(1);
+                        var user_id = reader.GetInt32(2);
+                        var status = reader.GetInt32(3);
+                        ticket = new Ticket(id, course_id, user_id, status);
+                    }
+                }
+            }
+            return ticket;
         }
     }
 }

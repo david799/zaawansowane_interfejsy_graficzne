@@ -88,4 +88,27 @@ namespace FirmaKolejowa
             surname = _surname;
         }
     }
+
+    public class Ticket
+    {
+        public int id;
+        public int course_id;
+        public int user_id;
+        public int status;
+
+        public Ticket(int _course_id, int _user_id, int _status)
+        {
+            course_id = _course_id;
+            user_id = _user_id;
+            status = _status;
+        }
+
+        public Ticket(int _id, int _course_id, int _user_id, int _status)
+        {
+            id = _id;
+            course_id = _course_id;
+            user_id = _user_id;
+            status = _status;
+        }
+    }
 }
