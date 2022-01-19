@@ -18,7 +18,7 @@ namespace FirmaKolejowa
             _connectionString = String.Format("Data Source={0}", _databaseLocation);
         }
 
-        public void addTrain(Train train)
+        public int addTrain(Train train)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -36,7 +36,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -45,7 +45,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void updateTrain(Train train)
+        public int updateTrain(Train train)
         {
             if (train.id == 0)
                 throw new Exception("Train id cannot be 0");
@@ -69,7 +69,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -78,7 +78,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteTrain(int id)
+        public int deleteTrain(int id)
         {
             if (id == 0)
                 throw new Exception("Train id cannot be 0");
@@ -97,7 +97,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -198,7 +198,7 @@ namespace FirmaKolejowa
             return trains;
         }
 
-        public void addCourse(Course course)
+        public int addCourse(Course course)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -222,7 +222,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -231,7 +231,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void updateCourse(Course course)
+        public int updateCourse(Course course)
         {
             if (course.id == 0)
                 throw new Exception("Train id cannot be 0");
@@ -266,7 +266,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -275,7 +275,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteCourse(int id)
+        public int deleteCourse(int id)
         {
             if (id == 0)
                 throw new Exception("Train id cannot be 0");
@@ -294,7 +294,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -371,7 +371,7 @@ namespace FirmaKolejowa
             return course;
         }
 
-        public void addUser(User user)
+        public int addUser(User user)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -391,7 +391,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -400,7 +400,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void updateUser(User user)
+        public int updateUser(User user)
         {
             if (user.id == 0)
                 throw new Exception("User id cannot be 0");
@@ -427,7 +427,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -436,7 +436,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteUser(int id)
+        public int deleteUser(int id)
         {
             if (id == 0)
                 throw new Exception("User id cannot be 0");
@@ -455,7 +455,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -523,7 +523,7 @@ namespace FirmaKolejowa
             return user;
         }
 
-        public void addTicket(Ticket ticket)
+        public int addTicket(Ticket ticket)
         {
             using (var connection = new SqliteConnection(_connectionString))
             {
@@ -542,7 +542,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -551,7 +551,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void updateTicket(Ticket ticket)
+        public int updateTicket(Ticket ticket)
         {
             if (ticket.id == 0)
                 throw new Exception("Ticket id cannot be 0");
@@ -576,7 +576,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -585,7 +585,7 @@ namespace FirmaKolejowa
             }
         }
 
-        public void deleteTicket(int id)
+        public int deleteTicket(int id)
         {
             if (id == 0)
                 throw new Exception("Ticket id cannot be 0");
@@ -604,7 +604,7 @@ namespace FirmaKolejowa
 
                 try
                 {
-                    command.ExecuteNonQuery();
+                    return command.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
