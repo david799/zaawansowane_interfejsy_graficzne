@@ -11,6 +11,10 @@ jobs:
 
     runs-on: windows-latest
 
+    defaults:
+      run:
+        working-directory: FirmaKolejowa
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
