@@ -1,21 +1,21 @@
-﻿using Microsoft.Data.Sqlite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BackendFirmaKolejowa.db.model;
+using Microsoft.Data.Sqlite;
 
-namespace FirmaKolejowa
+namespace BackendFirmaKolejowa.db.repository
 {
     public class CompanyDatabase
     {
         string _connectionString;
-        public CompanyDatabase()
+        public CompanyDatabase(string connectionString)
         {
-            var _databaseLocation = "data.db";
-            _databaseLocation = File.Exists(_databaseLocation) ? _databaseLocation : String.Format("../../../{0}", _databaseLocation);
-            _connectionString = String.Format("Data Source={0}", _databaseLocation);
+            // TODO: przeniesc do miejsca gdzie bedzie wywolanie w aplikacji front
+            //var _databaseLocation = "data.db";
+            //_databaseLocation = File.Exists(_databaseLocation) ? _databaseLocation : String.Format("../../../{0}", _databaseLocation);
+            //_connectionString = String.Format("Data Source={0}", _databaseLocation);
+            _connectionString = connectionString;
         }
 
         public int addTrain(Train train)
@@ -108,7 +108,7 @@ namespace FirmaKolejowa
 
         public List<Train> getTrains()
         {
-            List <Train> trains = new List <Train>();
+            List<Train> trains = new List<Train>();
             using (var connection = new SqliteConnection(_connectionString))
             {
                 connection.Open();

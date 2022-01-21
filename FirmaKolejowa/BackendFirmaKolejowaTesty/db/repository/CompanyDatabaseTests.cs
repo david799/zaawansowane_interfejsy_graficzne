@@ -1,16 +1,112 @@
+﻿using BackendFirmaKolejowa.db.model;
+using BackendFirmaKolejowa.db.repository;
+using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 
-namespace FirmaKolejowa.Testy
+namespace BackendFirmaKolejowaTesty.db.repository
 {
     public class DatabaseTests
     {
         private CompanyDatabase _database;
+        private SqliteConnection masterConnection;
+
         [SetUp]
         public void Setup()
         {
-            _database = new CompanyDatabase();
+            var connectionString = "Data Source=InMemorySample;Mode=Memory;Cache=Shared";
+            masterConnection = new SqliteConnection(connectionString);
+            masterConnection.Open();
+            initDb(connectionString);
+            _database = new CompanyDatabase(connectionString);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            masterConnection.Close();
+        }
+
+        private void initDb(string _connectionString)
+        {
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                var createCoursesTable = @"
+                    CREATE TABLE COURSE (
+	                    ""id""	INTEGER NOT NULL UNIQUE,
+	                    ""train_id""	INTEGER NOT NULL,
+	                    ""ticket_price""	REAL NOT NULL,
+	                    ""costs""	REAL NOT NULL,
+	                    ""canceled""	BOOLEAN NOT NULL,
+	                    ""starts_at""	DATETIME NOT NULL,
+	                    ""ends_at""	DATETIME NOT NULL,
+	                    ""starting_point""	TEXT NOT NULL,
+	                    ""destination""	TEXT NOT NULL,
+	                    PRIMARY KEY(""id"" AUTOINCREMENT)
+                    )";
+                var createTrainsTable = @"
+                    CREATE TABLE ""TRAIN"" (
+	                    ""id""	INTEGER NOT NULL UNIQUE,
+	                    ""active""	BOOLEAN NOT NULL,
+	                    ""capacity""	INTEGER NOT NULL,
+	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
+                var createUsersTable = @"
+                    CREATE TABLE ""USER"" (
+	                    ""id""	INTEGER NOT NULL UNIQUE,
+	                    ""nick""	TEXT NOT NULL,
+	                    ""password""	TEXT NOT NULL,
+	                    ""name""	TEXT NOT NULL,
+	                    ""surname""	TEXT NOT NULL,
+	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
+                var createTicketsTable = @"
+                    CREATE TABLE ""TICKET"" (
+	                    ""id""	INTEGER NOT NULL UNIQUE,
+	                    ""course_id""	INTEGER NOT NULL,
+	                    ""user_id""	INTEGER NOT NULL,
+	                    ""status""	INTEGER NOT NULL,
+	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
+
+                command.CommandText = createCoursesTable;
+                try
+                {
+                    var result = command.ExecuteNonQuery();
+                    result.ToString();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                command.CommandText = createTrainsTable;
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                command.CommandText = createUsersTable;
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+                command.CommandText = createTicketsTable;
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+
+            }
         }
 
         [Test]
@@ -19,7 +115,7 @@ namespace FirmaKolejowa.Testy
             var train = new Train(true, 15);
             Assert.Greater(_database.addTrain(train), 0);
             var trains = _database.getTrains();
-            _database.deleteTrain(trains[trains.Count-1].id);
+            _database.deleteTrain(trains[trains.Count - 1].id);
         }
 
         [Test]
@@ -29,7 +125,7 @@ namespace FirmaKolejowa.Testy
             _database.addTrain(train);
             var trains = _database.getTrains();
             Assert.Greater(trains.Count, 0);
-            _database.deleteTrain(trains[trains.Count-1].id);
+            _database.deleteTrain(trains[trains.Count - 1].id);
         }
 
         [Test]
@@ -38,7 +134,7 @@ namespace FirmaKolejowa.Testy
             var train = new Train(true, 15);
             _database.addTrain(train);
             var trains = _database.getTrains();
-            var lastTrain = trains[trains.Count-1];
+            var lastTrain = trains[trains.Count - 1];
             lastTrain.capacity = lastTrain.capacity + 1;
             Assert.Greater(_database.updateTrain(lastTrain), 0);
             _database.deleteTrain(lastTrain.id);
