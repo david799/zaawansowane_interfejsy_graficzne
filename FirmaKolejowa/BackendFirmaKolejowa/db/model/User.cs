@@ -18,21 +18,4 @@ namespace BackendFirmaKolejowa.db.model
 
     }
 
-    public class UserContext : DbContext
-    {
-        private readonly string connectionString;
-
-        public UserContext(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public DbSet<User> users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(connectionString);
-        }
-    }
-
 }

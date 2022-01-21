@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackendFirmaKolejowa.db.model
 {
@@ -11,29 +11,9 @@ namespace BackendFirmaKolejowa.db.model
         public bool is_active { get; set; }
         [Column("capacity")]
         public int capacity { get; set; }
+
+        public virtual List<Course> courses { get; set; }
+
     }
 
-    public class TrainContext : DbContext
-    {
-        private readonly string connectionString;
-
-        public TrainContext(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public TrainContext(DbContextOptions<TrainContext> options) : base(options)
-        {
-        }
-
-        public DbSet<Train> trains { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlite(connectionString);
-            }
-        }
-    }
 }

@@ -18,20 +18,4 @@ namespace BackendFirmaKolejowa.db.model
 
     }
 
-    public class TicketContext : DbContext
-    {
-        private readonly string connectionString;
-
-        public TicketContext(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public DbSet<Ticket> tickets { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(connectionString);
-        }
-    }
 }

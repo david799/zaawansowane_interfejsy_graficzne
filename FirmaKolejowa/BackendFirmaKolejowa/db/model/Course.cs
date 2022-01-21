@@ -8,14 +8,16 @@ namespace BackendFirmaKolejowa.db.model
     public class Course
     {
         public int id { get; set; }
-        [Column("train_id")]
-        public int train_id { get; set; }
+
+        [ForeignKey("train_id")]
+        public Train train { get; set; }
+
         [Column("ticket_price")]
         public double ticket_price { get; set; }
         [Column("costs")]
         public double costs { get; set; }
-        [Column("canceled")]
-        public bool canceled { get; set; }
+        [Column("cancelled")]
+        public bool cancelled { get; set; }
         [Column("starts_at")]
         public DateTime starts_at { get; set; }
         [Column("ends_at")]
@@ -26,22 +28,4 @@ namespace BackendFirmaKolejowa.db.model
         public string destination { get; set; }
 
     }
-
-    public class CourseContext : DbContext
-    {
-        private readonly string connectionString;
-
-        public CourseContext(string connectionString)
-        {
-            this.connectionString = connectionString;
-        }
-
-        public DbSet<Course> courses { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(connectionString);
-        }
-    }
-
 }

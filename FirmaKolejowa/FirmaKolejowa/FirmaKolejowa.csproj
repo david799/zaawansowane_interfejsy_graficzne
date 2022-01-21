@@ -9,4 +9,8 @@
 	  <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BackendFirmaKolejowa\BackendFirmaKolejowa.csproj" />
+  </ItemGroup>
+
 </Project>
