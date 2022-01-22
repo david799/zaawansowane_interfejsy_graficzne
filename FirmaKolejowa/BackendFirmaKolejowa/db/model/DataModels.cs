@@ -66,6 +66,7 @@ namespace BackendFirmaKolejowa.db.model
         public string password;
         public string name;
         public string surname;
+        public bool isAdmin;
 
         public User(string _nick, string _password, string _name, string _surname)
         {
@@ -75,13 +76,14 @@ namespace BackendFirmaKolejowa.db.model
             surname = _surname;
         }
 
-        public User(int _id, string _nick, string _password, string _name, string _surname)
+        public User(int _id, string _nick, string _password, string _name, string _surname, bool _isAdmin)
         {
             id = _id;
             nick = _nick;
             password = _password;
             name = _name;
             surname = _surname;
+            isAdmin = _isAdmin;
         }
     }
 

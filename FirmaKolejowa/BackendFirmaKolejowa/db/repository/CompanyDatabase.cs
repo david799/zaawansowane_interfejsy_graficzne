@@ -380,8 +380,8 @@ namespace BackendFirmaKolejowa.db.repository
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    INSERT INTO USER ( nick, password, name, surname )
-                    VALUES( $nick, $password, $name, $surname )
+                    INSERT INTO USER ( nick, password, name, surname, is_admin )
+                    VALUES( $nick, $password, $name, $surname, false )
                 ";
 
                 command.Parameters.AddWithValue("$nick", user.nick);
@@ -486,7 +486,8 @@ namespace BackendFirmaKolejowa.db.repository
                         var password = reader.GetString(2);
                         var name = reader.GetString(3);
                         var surname = reader.GetString(4);
-                        users.Add(new User(id, nick, password, name, surname));
+                        var isAdmin = reader.GetBoolean(5);
+                        users.Add(new User(id, nick, password, name, surname, isAdmin));
                     }
                 }
             }
@@ -516,7 +517,8 @@ namespace BackendFirmaKolejowa.db.repository
                         var password = reader.GetString(2);
                         var name = reader.GetString(3);
                         var surname = reader.GetString(4);
-                        user = new User(id, nick, password, name, surname);
+                        var isAdmin = reader.GetBoolean(5);
+                        user = new User(id, nick, password, name, surname, isAdmin);
                     }
                 }
             }

@@ -59,6 +59,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
 	                    ""password""	TEXT NOT NULL,
 	                    ""name""	TEXT NOT NULL,
 	                    ""surname""	TEXT NOT NULL,
+                        ""IS_ADMIN"" BOOLEAN NOT NULL CHECK(""IS_ADMIN"" IN (0,1)),
 	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
                 var createTicketsTable = @"
                     CREATE TABLE ""TICKET"" (
@@ -114,8 +115,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
         {
             var train = new Train(true, 15);
             Assert.Greater(_database.addTrain(train), 0);
-            var trains = _database.getTrains();
-            _database.deleteTrain(trains[trains.Count - 1].id);
         }
 
         [Test]
@@ -125,7 +124,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
             _database.addTrain(train);
             var trains = _database.getTrains();
             Assert.Greater(trains.Count, 0);
-            _database.deleteTrain(trains[trains.Count - 1].id);
         }
 
         [Test]
@@ -137,7 +135,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var lastTrain = trains[trains.Count - 1];
             lastTrain.capacity = lastTrain.capacity + 1;
             Assert.Greater(_database.updateTrain(lastTrain), 0);
-            _database.deleteTrain(lastTrain.id);
         }
 
         [Test]
@@ -153,10 +150,25 @@ namespace BackendFirmaKolejowaTesty.db.repository
         public void UserAdding()
         {
             var user = new User("nick", "password", "name", "surname");
-            Assert.Greater(_database.addUser(user), 0);
-            var users = _database.getUsers();
-            _database.deleteUser(users[users.Count - 1].id);
+            var addedUserId = _database.addUser(user);
+            Assert.Greater(addedUserId, 0);
+            var addedUser = _database.getUser(addedUserId);
+            Assert.AreEqual(addedUserId, addedUser.id);
+            Assert.AreEqual(false, addedUser.isAdmin);
         }
+
+        [Test]
+        public void ShouldNotAllowCreatingAdminUser()
+        {
+            var user = new User(12, "nick", "password", "name", "surname", true);
+            var addedUserId = _database.addUser(user);
+            Assert.Greater(addedUserId, 0);
+            var addedUser = _database.getUser(addedUserId);
+            Assert.AreEqual(addedUserId, addedUser.id);
+            Assert.AreNotEqual(addedUserId, 12);
+            Assert.AreEqual(false, addedUser.isAdmin);
+        }
+
 
         [Test]
         public void UsersGetting()
@@ -164,8 +176,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var user = new User("nick", "password", "name", "surname");
             _database.addUser(user);
             var users = _database.getUsers();
-            Assert.Greater(users.Count, 0);
-            _database.deleteUser(users[users.Count - 1].id);
+            Assert.AreEqual(1, users.Count);
         }
 
         [Test]
@@ -177,7 +188,18 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var lastUser = users[users.Count - 1];
             lastUser.name = "updatedName";
             Assert.Greater(_database.updateUser(lastUser), 0);
-            _database.deleteUser(lastUser.id);
+        }
+
+        [Test]
+        public void ShoutlNotAllowEditingAndSettingUserAdmin()
+        {
+            var user = new User("nick", "password", "name", "surname");
+            var addedUserId = _database.addUser(user);
+            var addedUser = _database.getUser(addedUserId);
+            addedUser.isAdmin = true;
+            _database.updateUser(addedUser);
+            var updatedUser = _database.getUser(addedUserId);
+            Assert.AreEqual(false, updatedUser.isAdmin);
         }
 
         [Test]
@@ -196,8 +218,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var data2 = new DateTime(2022, 1, 1, 13, 10, 10);
             var course = new Course(2, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
             Assert.Greater(_database.addCourse(course), 0);
-            var courses = _database.getCourses();
-            _database.deleteCourse(courses[courses.Count - 1].id);
         }
 
         [Test]
@@ -208,8 +228,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var course = new Course(2, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
             _database.addCourse(course);
             var courses = _database.getCourses();
-            Assert.Greater(courses.Count, 0);
-            _database.deleteCourse(courses[courses.Count - 1].id);
+            Assert.AreEqual(1, courses.Count);
         }
 
         [Test]
@@ -223,7 +242,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var lastCourse = courses[courses.Count - 1];
             lastCourse.destination = "newDestination";
             Assert.Greater(_database.updateCourse(lastCourse), 0);
-            _database.deleteCourse(lastCourse.id);
         }
 
         [Test]
@@ -242,8 +260,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
         {
             var ticket = new Ticket(1, 1, 1, 1);
             Assert.Greater(_database.addTicket(ticket), 0);
-            var tickets = _database.getTickets();
-            _database.deleteTicket(tickets[tickets.Count - 1].id);
         }
 
         [Test]
@@ -252,8 +268,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var ticket = new Ticket(1, 1, 1, 1);
             _database.addTicket(ticket);
             var tickets = _database.getTickets();
-            Assert.Greater(tickets.Count, 0);
-            _database.deleteTicket(tickets[tickets.Count - 1].id);
+            Assert.AreEqual(1, tickets.Count);
         }
 
         [Test]
@@ -265,7 +280,6 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var lastTicket = tickets[tickets.Count - 1];
             lastTicket.status = 2;
             Assert.Greater(_database.updateTicket(lastTicket), 0);
-            _database.deleteTicket(lastTicket.id);
         }
 
         [Test]
