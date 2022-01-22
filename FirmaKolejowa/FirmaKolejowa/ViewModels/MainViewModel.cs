@@ -1,10 +1,5 @@
-﻿using FirmaKolejowa.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using BackendFirmaKolejowa.Configuration;
+using BackendFirmaKolejowa.db.repository;
 
 namespace FirmaKolejowa.ViewModels
 {
@@ -12,6 +7,7 @@ namespace FirmaKolejowa.ViewModels
     {
 
         private BaseViewModel _selectedModel;
+        private ICompanyDatabase _database;
 
         public BaseViewModel SelectedViewModel
         {
@@ -25,17 +21,29 @@ namespace FirmaKolejowa.ViewModels
 
         public MainViewModel()
         {
-            var initialView = new LoginViewModel(NavigationChangeEvent);
+            DbConfig dbConfig = new DbConfig();
+            _database = dbConfig.getCompanyDatabase();
+
+            var initialView = new LoginViewModel(_database, NavigationChangeEvent);
             _selectedModel = initialView;
         }
 
         public void NavigationChangeEvent(string viewToDisplay)
         {
-            if (viewToDisplay == "Admin")
+            switch (viewToDisplay)
             {
-                var adminViewModel = new AdminViewModel(NavigationChangeEvent);
-                SelectedViewModel = adminViewModel;
+                case "Admin":
+                    var adminViewModel = new AdminViewModel(NavigationChangeEvent);
+                    SelectedViewModel = adminViewModel;
+                    break;
+                case "User":
+                    var userViewModel = new UserViewModel(NavigationChangeEvent);
+                    SelectedViewModel = userViewModel;
+                    break;
+                default:
+                    break;
             }
         }
+
     }
 }

@@ -1,9 +1,8 @@
-﻿using FirmaKolejowa.ViewModels;
+﻿using BackendFirmaKolejowa.db.exception;
+using BackendFirmaKolejowa.db.service;
+using BackendFirmaKolejowa.service;
+using FirmaKolejowa.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace FirmaKolejowa.Commands
@@ -12,10 +11,12 @@ namespace FirmaKolejowa.Commands
     {
 
         private LoginViewModel loginViewModel;
+        private ILoginService loginService;
 
         public LogInCommand(LoginViewModel loginViewModel)
         {
             this.loginViewModel = loginViewModel;
+            loginService = new LoginService(loginViewModel.database);
         }
 
         public event EventHandler? CanExecuteChanged;
@@ -27,7 +28,24 @@ namespace FirmaKolejowa.Commands
 
         public void Execute(object? parameter)
         {
-            loginViewModel.OnNavigationChange(parameter.ToString());
+
+            var username = loginViewModel.LoginModel.Username;
+            var password = loginViewModel.LoginModel.Password;
+            try
+            {
+                var user = loginService.logIn(username, password);
+                if(user.isAdmin)
+                {
+                    loginViewModel.OnNavigationChange("Admin");
+                } else
+                {
+                    loginViewModel.OnNavigationChange("User");
+                }
+            } catch (LoginException e)
+            {
+                // TODO: some alert?
+            }
+            
         }
     }
 }

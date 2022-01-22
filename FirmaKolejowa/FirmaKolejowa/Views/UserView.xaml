@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Label Content="USER VIEW&#xD;&#xA;" HorizontalAlignment="Left" Height="202" Margin="260,110,0,0" VerticalAlignment="Top" Width="326"/>
+
     </Grid>
 </UserControl>

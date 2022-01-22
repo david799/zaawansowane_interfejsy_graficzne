@@ -1,10 +1,11 @@
 ﻿using BackendFirmaKolejowa.db.exception;
 using BackendFirmaKolejowa.db.model;
 using BackendFirmaKolejowa.db.repository;
+using BackendFirmaKolejowa.service;
 
 namespace BackendFirmaKolejowa.db.service
 {
-    public class LoginService
+    public class LoginService : ILoginService
     {
         private ICompanyDatabase companyDatabase;
         
@@ -13,6 +14,7 @@ namespace BackendFirmaKolejowa.db.service
             companyDatabase = database;
         }
 
+        /// <exception cref="LoginException">Thrown when loggin attempt fails</exception>
         public User logIn(string username, string password)
         {
             var loggedUser = companyDatabase.getUserByNameAndPassword(username, password);

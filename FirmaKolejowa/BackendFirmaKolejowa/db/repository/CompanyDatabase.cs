@@ -10,16 +10,8 @@ namespace BackendFirmaKolejowa.db.repository
     {
         private string _connectionString;
 
-        public CompanyDatabase()
-        {
-                
-        }
         public CompanyDatabase(string connectionString)
         {
-            // TODO: przeniesc do miejsca gdzie bedzie wywolanie w aplikacji front
-            //var _databaseLocation = "data.db";
-            //_databaseLocation = File.Exists(_databaseLocation) ? _databaseLocation : String.Format("../../../{0}", _databaseLocation);
-            //_connectionString = String.Format("Data Source={0}", _databaseLocation);
             _connectionString = connectionString;
         }
 

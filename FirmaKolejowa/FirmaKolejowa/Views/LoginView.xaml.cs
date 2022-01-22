@@ -1,18 +1,6 @@
 ﻿using FirmaKolejowa.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FirmaKolejowa.Views
 {
@@ -25,5 +13,14 @@ namespace FirmaKolejowa.Views
         {
             InitializeComponent();
         }
+
+        // this is dirty workaround...
+        public void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var pass = ((PasswordBox)sender).Password;
+            (this.DataContext as LoginViewModel).LoginModel.Password = pass;
+        }
+
+
     }
 }
