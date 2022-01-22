@@ -203,6 +203,24 @@ namespace BackendFirmaKolejowaTesty.db.repository
         }
 
         [Test]
+        public void ShouldReturnUserByNameAndPasswordIfExists()
+        {
+            var user = new User("nick", "password", "name", "surname");
+            var addedUserId = _database.addUser(user);
+            var foundUser = _database.getUserByNameAndPassword("nick", "password");
+            Assert.AreNotEqual(null, foundUser);
+        }
+        [Test]
+        public void ShouldReturnNullIfUserByNameAndPasswordNotExists()
+        {
+            var user = new User("differentNick", "password", "name", "surname");
+            var addedUserId = _database.addUser(user);
+            var foundUser = _database.getUserByNameAndPassword("nick", "password");
+            Assert.AreEqual(null, foundUser);
+        }
+
+
+        [Test]
         public void UserDeleting()
         {
             var user = new User("nick", "password", "name", "surname");

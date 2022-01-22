@@ -6,9 +6,14 @@ using Microsoft.Data.Sqlite;
 
 namespace BackendFirmaKolejowa.db.repository
 {
-    public class CompanyDatabase
+    public class CompanyDatabase : ICompanyDatabase
     {
-        string _connectionString;
+        private string _connectionString;
+
+        public CompanyDatabase()
+        {
+                
+        }
         public CompanyDatabase(string connectionString)
         {
             // TODO: przeniesc do miejsca gdzie bedzie wywolanie w aplikacji front
@@ -519,6 +524,39 @@ namespace BackendFirmaKolejowa.db.repository
                         var surname = reader.GetString(4);
                         var isAdmin = reader.GetBoolean(5);
                         user = new User(id, nick, password, name, surname, isAdmin);
+                    }
+                }
+            }
+            return user;
+        }
+
+        public User getUserByNameAndPassword(string userName, string password)
+        {
+            User user = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM USER
+                    WHERE nick = $username AND
+                    password = $password
+                ";
+                command.Parameters.AddWithValue("$username", userName);
+                command.Parameters.AddWithValue("$password", password);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var nick = reader.GetString(1);
+                        var pass = reader.GetString(2);
+                        var name = reader.GetString(3);
+                        var surname = reader.GetString(4);
+                        var isAdmin = reader.GetBoolean(5);
+                        user = new User(id, nick, pass, name, surname, isAdmin);
                     }
                 }
             }
