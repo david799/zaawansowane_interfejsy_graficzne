@@ -68,6 +68,8 @@ namespace BackendFirmaKolejowa.db.model
         public string surname;
         public bool isAdmin;
 
+        public User() { }
+
         public User(string _nick, string _password, string _name, string _surname)
         {
             nick = _nick;

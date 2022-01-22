@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FirmaKolejowa.Commands;
+using System.Windows.Input;
 
 namespace FirmaKolejowa.ViewModels
 {
     public class AdminViewModel : NavigableViewModel
     {
 
+        public ICommand OpenAdminUserListCommand { get; set; }
+
         public AdminViewModel(NavigationChange navigationDelegate) : base(navigationDelegate)
         {
-
+            OpenAdminUserListCommand = new OpenAdminUserListCommand(this);
         }
 
     }

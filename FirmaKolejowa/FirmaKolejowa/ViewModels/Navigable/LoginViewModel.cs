@@ -13,6 +13,7 @@ namespace FirmaKolejowa.ViewModels
 
         private ICompanyDatabase _database;
         private LoginModel _loginModel;
+        public LoginModel LoginModel { get { return _loginModel; } set { _loginModel = value; } }
 
         public LoginViewModel(ICompanyDatabase iDatabase, NavigationChange navigationDelegate) : base(navigationDelegate)
         {
@@ -21,7 +22,6 @@ namespace FirmaKolejowa.ViewModels
             LogInCommand = new LogInCommand(this);
         }
 
-        public LoginModel LoginModel { get { return _loginModel; } set { _loginModel = value; } }
 
 
     }
