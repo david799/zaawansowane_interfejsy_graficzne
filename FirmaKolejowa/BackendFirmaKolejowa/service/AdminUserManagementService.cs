@@ -20,7 +20,7 @@ namespace BackendFirmaKolejowa.service
             companyDatabase.addUser(user);
         }
 
-        public List<User> getALlUsers()
+        public List<User> getAllUsers()
         {
             return companyDatabase.getUsers();
         }

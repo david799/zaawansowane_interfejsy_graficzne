@@ -9,10 +9,41 @@
     <Grid>
         <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="User Management"/></TextBlock>
 
-        <ListView HorizontalAlignment="Left" Height="281" Margin="20,50,0,0" VerticalAlignment="Top" Width="760">
+        <ListView ItemsSource="{Binding Users}" HorizontalAlignment="Left" Height="281" Margin="20,50,0,0" VerticalAlignment="Top" Width="760">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridView.Columns>
+                        <GridViewColumn Header="Username" Width="223">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Username}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="First name" Width="223">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FirstName}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Last name" Width="223">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LastName}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Admin?" Width="91">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding IsAdmin}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -6,6 +6,6 @@ namespace BackendFirmaKolejowa.service
     public interface IAdminUserManagementService
     {
         void addUser(string username, string password, string firstName, string lastName);
-        List<User> getALlUsers();
+        List<User> getAllUsers();
     }
 }

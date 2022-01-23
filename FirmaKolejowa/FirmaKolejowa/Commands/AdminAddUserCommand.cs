@@ -29,11 +29,15 @@ namespace FirmaKolejowa.Commands
             var password = adminUserListViewModel.AdminAddUserModel.Password;
             var firstName = adminUserListViewModel.AdminAddUserModel.FirstName;
             var lastName = adminUserListViewModel.AdminAddUserModel.LastName;
+
             adminUserManagementService.addUser(username, password, firstName, lastName);
+
             adminUserListViewModel.AdminAddUserModel.Username = "";
             adminUserListViewModel.AdminAddUserModel.Password = "";
             adminUserListViewModel.AdminAddUserModel.FirstName = "";
             adminUserListViewModel.AdminAddUserModel.LastName = "";
+
+            adminUserListViewModel.AdminGetAllUsersCommand.Execute(null);
         }
 
     }
