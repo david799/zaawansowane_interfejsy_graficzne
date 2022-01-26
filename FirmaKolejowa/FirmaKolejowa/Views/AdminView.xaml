@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="FirmaKolejowa.Views.AdminView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FirmaKolejowa.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="ADMIN PANEL"/></TextBlock>
+        <Button Command="{Binding OpenAdminUserListCommand}" Content="User management" HorizontalAlignment="Center" Height="27" Margin="0,118,0,0" VerticalAlignment="Top" Width="133"/>
+        <Button Content="Train management" HorizontalAlignment="Center" Height="27" Margin="0,170,0,0" VerticalAlignment="Top" Width="133"/>
+        <Button Content="Course management" HorizontalAlignment="Center" Height="27" Margin="0,222,0,0" VerticalAlignment="Top" Width="133"/>
+
+    </Grid>
+</UserControl>

@@ -2,8 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FirmaKolejowa"
+             xmlns:views="clr-namespace:FirmaKolejowa.Views"
+             xmlns:viemodels="clr-namespace:FirmaKolejowa.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <DataTemplate DataType="{x:Type viemodels:LoginViewModel}">
+            <views:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viemodels:AdminViewModel}">
+            <views:AdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viemodels:UserViewModel}">
+            <views:UserView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viemodels:AdminUserListViewModel}">
+            <views:AdminUserList/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

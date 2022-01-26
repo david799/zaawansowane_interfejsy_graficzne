@@ -1,5 +1,4 @@
-﻿using FirmaKolejowa.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FirmaKolejowa
+namespace FirmaKolejowa.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminUserList.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminUserList : UserControl
     {
-        public MainWindow()
+        public AdminUserList()
         {
             InitializeComponent();
-
-            DataContext = new MainViewModel();
         }
     }
 }

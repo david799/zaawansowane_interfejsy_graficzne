@@ -6,15 +6,12 @@ using Microsoft.Data.Sqlite;
 
 namespace BackendFirmaKolejowa.db.repository
 {
-    public class CompanyDatabase
+    public class CompanyDatabase : ICompanyDatabase
     {
-        string _connectionString;
+        private string _connectionString;
+
         public CompanyDatabase(string connectionString)
         {
-            // TODO: przeniesc do miejsca gdzie bedzie wywolanie w aplikacji front
-            //var _databaseLocation = "data.db";
-            //_databaseLocation = File.Exists(_databaseLocation) ? _databaseLocation : String.Format("../../../{0}", _databaseLocation);
-            //_connectionString = String.Format("Data Source={0}", _databaseLocation);
             _connectionString = connectionString;
         }
 
@@ -380,8 +377,8 @@ namespace BackendFirmaKolejowa.db.repository
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    INSERT INTO USER ( nick, password, name, surname )
-                    VALUES( $nick, $password, $name, $surname )
+                    INSERT INTO USER ( nick, password, name, surname, is_admin )
+                    VALUES( $nick, $password, $name, $surname, false )
                 ";
 
                 command.Parameters.AddWithValue("$nick", user.nick);
@@ -486,7 +483,8 @@ namespace BackendFirmaKolejowa.db.repository
                         var password = reader.GetString(2);
                         var name = reader.GetString(3);
                         var surname = reader.GetString(4);
-                        users.Add(new User(id, nick, password, name, surname));
+                        var isAdmin = reader.GetBoolean(5);
+                        users.Add(new User(id, nick, password, name, surname, isAdmin));
                     }
                 }
             }
@@ -516,7 +514,41 @@ namespace BackendFirmaKolejowa.db.repository
                         var password = reader.GetString(2);
                         var name = reader.GetString(3);
                         var surname = reader.GetString(4);
-                        user = new User(id, nick, password, name, surname);
+                        var isAdmin = reader.GetBoolean(5);
+                        user = new User(id, nick, password, name, surname, isAdmin);
+                    }
+                }
+            }
+            return user;
+        }
+
+        public User getUserByNameAndPassword(string userName, string password)
+        {
+            User user = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM USER
+                    WHERE nick = $username AND
+                    password = $password
+                ";
+                command.Parameters.AddWithValue("$username", userName);
+                command.Parameters.AddWithValue("$password", password);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var nick = reader.GetString(1);
+                        var pass = reader.GetString(2);
+                        var name = reader.GetString(3);
+                        var surname = reader.GetString(4);
+                        var isAdmin = reader.GetBoolean(5);
+                        user = new User(id, nick, pass, name, surname, isAdmin);
                     }
                 }
             }
