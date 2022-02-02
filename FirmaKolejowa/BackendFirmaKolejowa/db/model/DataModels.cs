@@ -8,6 +8,12 @@ namespace BackendFirmaKolejowa.db.model
         public bool is_active;
         public string name;
         public int capacity;
+
+        public Train()
+        {
+
+        }
+
         public Train(bool _is_active, string _name, int _capacity)
         {
             is_active = _is_active;
