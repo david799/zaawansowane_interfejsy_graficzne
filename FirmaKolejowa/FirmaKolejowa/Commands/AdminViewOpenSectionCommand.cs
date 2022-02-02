@@ -4,11 +4,11 @@ using System.Windows.Input;
 
 namespace FirmaKolejowa.Commands
 {
-    public class OpenAdminUserListCommand: ICommand
+    public class AdminViewOpenSectionCommand: ICommand
     {
         private AdminViewModel adminViewModel;
 
-        public OpenAdminUserListCommand(AdminViewModel adminViewModel)
+        public AdminViewOpenSectionCommand(AdminViewModel adminViewModel)
         {
             this.adminViewModel = adminViewModel;
         }
@@ -22,7 +22,7 @@ namespace FirmaKolejowa.Commands
 
         public void Execute(object? parameter)
         {
-            adminViewModel.OnNavigationChange("AdminUserList");
+            adminViewModel.OnNavigationChange(parameter?.ToString());
         }
     }
 }

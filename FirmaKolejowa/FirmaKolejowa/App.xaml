@@ -19,6 +19,9 @@
         <DataTemplate DataType="{x:Type viemodels:AdminUserListViewModel}">
             <views:AdminUserList/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viemodels:AdminTrainListViewModel}">
+            <views:AdminTrainList/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

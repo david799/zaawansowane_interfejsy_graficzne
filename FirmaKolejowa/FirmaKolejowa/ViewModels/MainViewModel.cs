@@ -44,6 +44,10 @@ namespace FirmaKolejowa.ViewModels
                     var adminUserListViewModel = new AdminUserListViewModel(_database, NavigationChangeEvent);
                     SelectedViewModel = adminUserListViewModel;
                     break;
+                case "AdminTrainList":
+                    var adminTrainListViewModel = new AdminTrainListViewModel(_database, NavigationChangeEvent);
+                    SelectedViewModel = adminTrainListViewModel;
+                    break;
                 default:
                     break;
             }

@@ -10,7 +10,7 @@ namespace FirmaKolejowa.ViewModels
 
         public AdminViewModel(NavigationChange navigationDelegate) : base(navigationDelegate)
         {
-            OpenAdminUserListCommand = new OpenAdminUserListCommand(this);
+            OpenAdminUserListCommand = new AdminViewOpenSectionCommand(this);
         }
 
     }
