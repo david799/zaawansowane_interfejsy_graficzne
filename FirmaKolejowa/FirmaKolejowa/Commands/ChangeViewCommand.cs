@@ -4,13 +4,13 @@ using System.Windows.Input;
 
 namespace FirmaKolejowa.Commands
 {
-    public class AdminViewOpenSectionCommand: ICommand
+    public class ChangeViewCommand: ICommand
     {
-        private AdminViewModel adminViewModel;
+        private NavigableViewModel viewModel;
 
-        public AdminViewOpenSectionCommand(AdminViewModel adminViewModel)
+        public ChangeViewCommand(NavigableViewModel _viewModel)
         {
-            this.adminViewModel = adminViewModel;
+            viewModel = _viewModel;
         }
 
         public event EventHandler? CanExecuteChanged;
@@ -22,7 +22,7 @@ namespace FirmaKolejowa.Commands
 
         public void Execute(object? parameter)
         {
-            adminViewModel.OnNavigationChange(parameter?.ToString());
+            viewModel.OnNavigationChange(parameter?.ToString());
         }
     }
 }

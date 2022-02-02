@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="ADMIN PANEL"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="Admin Panel"/></TextBlock>
         <Button Command="{Binding OpenAdminUserListCommand}" CommandParameter="AdminUserList" Content="User management" HorizontalAlignment="Center" Height="27" Margin="0,118,0,0" VerticalAlignment="Top" Width="133"/>
         <Button Command="{Binding OpenAdminUserListCommand}" CommandParameter="AdminTrainList" Content="Train management" HorizontalAlignment="Center" Height="27" Margin="0,170,0,0" VerticalAlignment="Top" Width="133"/>
         <Button Content="Course management" HorizontalAlignment="Center" Height="27" Margin="0,222,0,0" VerticalAlignment="Top" Width="133"/>

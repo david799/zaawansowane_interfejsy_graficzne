@@ -19,6 +19,7 @@ namespace FirmaKolejowa.ViewModels
         public ICompanyDatabase database { get { return _database; } }
         public ICommand AdminAddUserCommand { get; set; }
         public ICommand AdminGetAllUsersCommand { get; set; }
+        public ICommand GoBackToAdminViewCommand { get; set; }
 
         public AdminUserListViewModel(ICompanyDatabase iDatabase, NavigationChange navigationDelegate) : base(navigationDelegate)
         {
@@ -26,6 +27,7 @@ namespace FirmaKolejowa.ViewModels
             _database = iDatabase;
             AdminAddUserCommand = new AdminAddUserCommand(this);
             AdminGetAllUsersCommand = new AdminGetAllUsersCommand(this);
+            GoBackToAdminViewCommand = new ChangeViewCommand(this);
             AdminGetAllUsersCommand.Execute(null);
         }
 

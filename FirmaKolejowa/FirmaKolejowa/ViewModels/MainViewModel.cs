@@ -18,7 +18,6 @@ namespace FirmaKolejowa.ViewModels
             }
         }
 
-
         public MainViewModel()
         {
             DbConfig dbConfig = new DbConfig();

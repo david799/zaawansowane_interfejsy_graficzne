@@ -15,11 +15,13 @@ namespace FirmaKolejowa.ViewModels
         private ICompanyDatabase _database;
         public ICompanyDatabase database { get { return _database; } }
         public ICommand AdminGetAllTrainsCommand { get; set; }
+        public ICommand GoBackToAdminViewCommand { get; set; }
 
         public AdminTrainListViewModel(ICompanyDatabase iDatabase, NavigationChange navigationDelegate) : base(navigationDelegate)
         {
             _database = iDatabase;
             AdminGetAllTrainsCommand = new AdminGetAllTrainsCommand(this);
+            GoBackToAdminViewCommand = new ChangeViewCommand(this);
 
             AdminGetAllTrainsCommand.Execute(null);
         }

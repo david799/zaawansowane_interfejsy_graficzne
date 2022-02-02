@@ -46,6 +46,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
+        <Button Command="{Binding GoBackToAdminViewCommand}" CommandParameter="Admin" Content="Back" HorizontalAlignment="Left" Height="24" Margin="20,10,0,0" VerticalAlignment="Top" Width="88"/>
     </Grid>
 </UserControl>
