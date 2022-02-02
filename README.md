@@ -18,6 +18,7 @@ CREATE TABLE COURSE (
 CREATE TABLE "TRAIN" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"active"	BOOLEAN NOT NULL,
+	"name" TEXT NOT NULL,
 	"capacity"	INTEGER NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
@@ -39,4 +40,17 @@ CREATE TABLE "TICKET" (
 	"status"	INTEGER NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
+
+INSERT INTO TRAIN ("active", "name", "capacity") values
+(0, "inactive", 120),
+(1, "small train", 5),
+(1, "medium train", 50),
+(1, "large train", 500),
+(1, "small the second", 5),
+(1, "medium the second", 50),
+(1, "large the second", 500),
+(1, "small the third", 5),
+(1, "medium the third", 50),
+(1, "large the third", 500);
+
 ```

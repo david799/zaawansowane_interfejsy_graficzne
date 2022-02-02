@@ -24,11 +24,12 @@ namespace BackendFirmaKolejowa.db.repository
                 var command = connection.CreateCommand();
                 command.CommandText =
                 @"
-                    INSERT INTO TRAIN ( active, capacity )
-                    VALUES( $is_active, $capacity )
+                    INSERT INTO TRAIN ( active, name, capacity )
+                    VALUES( $is_active, $name, $capacity )
                 ";
 
                 command.Parameters.AddWithValue("$is_active", train.is_active ? 1 : 0);
+                command.Parameters.AddWithValue("$name", train.name);
                 command.Parameters.AddWithValue("$capacity", train.capacity);
 
                 try
@@ -122,8 +123,9 @@ namespace BackendFirmaKolejowa.db.repository
                     {
                         var id = reader.GetInt32(0);
                         var is_active = reader.GetInt32(1);
-                        var capacity = reader.GetInt32(2);
-                        trains.Add(new Train(id, Convert.ToBoolean(is_active), capacity));
+                        var name = reader.GetString(2);
+                        var capacity = reader.GetInt32(3);
+                        trains.Add(new Train(id, Convert.ToBoolean(is_active), name, capacity));
                     }
                 }
 
@@ -151,8 +153,9 @@ namespace BackendFirmaKolejowa.db.repository
                     {
                         var id = reader.GetInt32(0);
                         var is_active = reader.GetInt32(1);
-                        var capacity = reader.GetInt32(2);
-                        train = new Train(id, Convert.ToBoolean(is_active), capacity);
+                        var name = reader.GetString(2);
+                        var capacity = reader.GetInt32(3);
+                        train = new Train(id, Convert.ToBoolean(is_active), name, capacity);
                     }
                 }
 
@@ -186,8 +189,9 @@ namespace BackendFirmaKolejowa.db.repository
                     {
                         var id = reader.GetInt32(0);
                         var is_active = reader.GetInt32(1);
-                        var capacity = reader.GetInt32(2);
-                        trains.Add(new Train(id, Convert.ToBoolean(is_active), capacity));
+                        var name = reader.GetString(2);
+                        var capacity = reader.GetInt32(3);
+                        trains.Add(new Train(id, Convert.ToBoolean(is_active), name, capacity));
                     }
                 }
 

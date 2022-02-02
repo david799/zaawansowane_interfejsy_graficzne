@@ -6,17 +6,20 @@ namespace BackendFirmaKolejowa.db.model
     {
         public int id;
         public bool is_active;
+        public string name;
         public int capacity;
-        public Train(bool _is_active, int _capacity)
+        public Train(bool _is_active, string _name, int _capacity)
         {
             is_active = _is_active;
+            name = _name;
             capacity = _capacity;
         }
 
-        public Train(int _id, bool _is_active, int _capacity)
+        public Train(int _id, bool _is_active, string _name, int _capacity)
         {
             id = _id;
             is_active = _is_active;
+            name = _name;
             capacity = _capacity;
         }
     }

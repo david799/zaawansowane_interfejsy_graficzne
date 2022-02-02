@@ -50,6 +50,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
                     CREATE TABLE ""TRAIN"" (
 	                    ""id""	INTEGER NOT NULL UNIQUE,
 	                    ""active""	BOOLEAN NOT NULL,
+                        ""name"" TEXT NOT NULL,
 	                    ""capacity""	INTEGER NOT NULL,
 	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
                 var createUsersTable = @"
@@ -68,6 +69,13 @@ namespace BackendFirmaKolejowaTesty.db.repository
 	                    ""user_id""	INTEGER NOT NULL,
 	                    ""status""	INTEGER NOT NULL,
 	                    PRIMARY KEY(""id"" AUTOINCREMENT))";
+
+                var initTrains = @"INSERT INTO TRAIN (""active"", ""name"", ""capacity"") values
+                       (0, ""nonactive"", 300),
+                       (1, ""small"", 10),
+                       (1, ""medium"", 100),
+                       (1, ""large"", 500)
+                ";
 
                 command.CommandText = createCoursesTable;
                 try
@@ -106,6 +114,15 @@ namespace BackendFirmaKolejowaTesty.db.repository
                 {
                     throw new Exception(ex.Message);
                 }
+                command.CommandText = initTrains;
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
 
             }
         }
@@ -113,14 +130,14 @@ namespace BackendFirmaKolejowaTesty.db.repository
         [Test]
         public void TrainAdding()
         {
-            var train = new Train(true, 15);
+            var train = new Train(true, "example", 15);
             Assert.Greater(_database.addTrain(train), 0);
         }
 
         [Test]
         public void TrainsGetting()
         {
-            var train = new Train(true, 15);
+            var train = new Train(true, "example", 15);
             _database.addTrain(train);
             var trains = _database.getTrains();
             Assert.Greater(trains.Count, 0);
@@ -129,7 +146,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
         [Test]
         public void TrainEditing()
         {
-            var train = new Train(true, 15);
+            var train = new Train(true, "example", 15);
             _database.addTrain(train);
             var trains = _database.getTrains();
             var lastTrain = trains[trains.Count - 1];
@@ -140,7 +157,7 @@ namespace BackendFirmaKolejowaTesty.db.repository
         [Test]
         public void TrainDeleting()
         {
-            var train = new Train(true, 15);
+            var train = new Train(true, "example", 15);
             _database.addTrain(train);
             var trains = _database.getTrains();
             Assert.Greater(_database.deleteTrain(trains[trains.Count - 1].id), 0);
