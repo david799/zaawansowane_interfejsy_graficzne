@@ -13,15 +13,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace FirmaKolejowa.Views
 {
     /// <summary>
     /// Interaction logic for CoursesView.xaml
     /// </summary>
-    public partial class CoursesView : UserControl
+    public partial class AdminCoursesView : UserControl
     {
-        public CoursesView()
+        public AdminCoursesView()
         {
             InitializeComponent();
         }
@@ -44,5 +45,6 @@ namespace FirmaKolejowa.Views
             }
             (sender as Button).Command.Execute(null);
         }
+
     }
 }
