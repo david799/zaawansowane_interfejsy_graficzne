@@ -13,7 +13,14 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="Starting point" Width="90">
+                        <GridViewColumn  Header="Id" Width="20">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Id}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn  Header="Starting point" Width="90">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding StartingPoint}"></TextBlock>
@@ -88,5 +95,8 @@
             </ListView.View>
         </ListView>
         <Button Command="{Binding GoBackToAdminViewCommand}" CommandParameter="Admin" Content="Back" HorizontalAlignment="Left" Height="24" Margin="20,10,0,0" VerticalAlignment="Top" Width="88"/>
+        <TextBlock HorizontalAlignment="Left" Height="24" Margin="20,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Left" FontSize="20"><Run Language="pl-pl" Text="Cancel course"/></TextBlock>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="24" Margin="160,355,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50"/>
+        <Button Command="{Binding AdminGetAllCoursesCommand}" CommandParameter="Admin" Click="CancelButtonClicked" Content="Cancel" HorizontalAlignment="Left" Height="24" Margin="240,355,0,0" VerticalAlignment="Top" Width="88"/>
     </Grid>
 </UserControl>
