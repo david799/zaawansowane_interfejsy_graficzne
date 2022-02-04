@@ -15,6 +15,7 @@ namespace FirmaKolejowa.ViewModels
         public ObservableCollection<AdminTrainListElementModel> Trains { get { return _trains; } }
         public AdminTrainListElementModel SelectedTrain { get { return selectedTrain; } set { 
                 selectedTrain = value;
+                ActivateModel.SelectedTrainId = value != null ? value.Id : -1;
                 ActivateModel.CanActivate = value != null && !value.IsActive;
                 ActivateModel.CanDeactivate = value != null && value.IsActive;
             } }
@@ -24,12 +25,17 @@ namespace FirmaKolejowa.ViewModels
         public ICompanyDatabase database { get { return _database; } }
         public ICommand AdminGetAllTrainsCommand { get; set; }
         public ICommand GoBackToAdminViewCommand { get; set; }
+        public ICommand AdminActivateTrainCommand { get; set; }
+        public ICommand AdminDeactivateTrainCommand { get; set; }
 
         public AdminTrainListViewModel(ICompanyDatabase iDatabase, NavigationChange navigationDelegate) : base(navigationDelegate)
         {
             _database = iDatabase;
             AdminGetAllTrainsCommand = new AdminGetAllTrainsCommand(this);
             GoBackToAdminViewCommand = new ChangeViewCommand(this);
+
+            AdminActivateTrainCommand = new AdminActivateTrainCommand(this);
+            AdminDeactivateTrainCommand = new AdminDeactivateTrainCommand(this);
 
             AdminGetAllTrainsCommand.Execute(null);
         }

@@ -47,7 +47,7 @@
             </ListView.View>
         </ListView>
         <Button Command="{Binding GoBackToAdminViewCommand}" CommandParameter="Admin" Content="Back" HorizontalAlignment="Left" Height="24" Margin="20,10,0,0" VerticalAlignment="Top" Width="88"/>
-        <Button Content="Activate" IsEnabled="{Binding ActivateModel.CanActivate}" HorizontalAlignment="Left" Height="29" Margin="25,355,0,0" VerticalAlignment="Top" Width="83"/>
-        <Button Content="Deactivate" IsEnabled="{Binding ActivateModel.CanDeactivate}" HorizontalAlignment="Left" Height="29" Margin="113,355,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button Command="{Binding AdminActivateTrainCommand}" CommandParameter="{Binding ActivateModel.SelectedTrainId}" Content="Activate" IsEnabled="{Binding ActivateModel.CanActivate}" HorizontalAlignment="Left" Height="29" Margin="25,355,0,0" VerticalAlignment="Top" Width="83"/>
+        <Button Command="{Binding AdminDeactivateTrainCommand}" CommandParameter="{Binding ActivateModel.SelectedTrainId}" Content="Deactivate" IsEnabled="{Binding ActivateModel.CanDeactivate}" HorizontalAlignment="Left" Height="29" Margin="113,355,0,0" VerticalAlignment="Top" Width="83"/>
     </Grid>
 </UserControl>
