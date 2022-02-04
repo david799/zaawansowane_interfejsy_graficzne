@@ -9,7 +9,63 @@
     <Grid>
         <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="Buy ticket"/></TextBlock>
 
+        <ListView ItemsSource="{Binding Courses}" SelectedItem="{Binding SelectedCourse, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="281" Margin="20,50,0,0" VerticalAlignment="Top" Width="760">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="From" Width="170">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding From}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="To" Width="170">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding To}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Starts At" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StartsAt}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Ends At" Width="110">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding EndsAt}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Train name" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TrainName}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Ticket price" Width="90">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TicketPrice}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
         <Button Command="{Binding ChangeViewCommand}" CommandParameter="User" Content="Back" HorizontalAlignment="Left" Height="24" Margin="20,10,0,0" VerticalAlignment="Top" Width="88"/>
+        <Button Command="{Binding BuyTicketCommand}" IsEnabled="{Binding BuyTicketButtonActiveModel.CanBuy}" Content="Buy" HorizontalAlignment="Left" Height="29" Margin="25,355,0,0" VerticalAlignment="Top" Width="83"/>
 
     </Grid>
 </UserControl>
