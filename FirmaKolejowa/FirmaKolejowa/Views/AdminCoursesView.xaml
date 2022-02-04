@@ -13,7 +13,7 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn  Header="Id" Width="20">
+                        <GridViewColumn  Header="Id" Width="30">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Id}"></TextBlock>
@@ -95,25 +95,25 @@
             </ListView.View>
         </ListView>
         <Button Command="{Binding GoBackToAdminViewCommand}" CommandParameter="Admin" Content="Back" HorizontalAlignment="Left" Height="24" Margin="20,10,0,0" VerticalAlignment="Top" Width="88"/>
-        
+
         <TextBlock HorizontalAlignment="Left" Height="24" Margin="20,350,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Left" FontSize="20"><Run Language="pl-pl" Text="Cancel course"/></TextBlock>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="24" Margin="160,355,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="50"/>
         <Button Command="{Binding AdminGetAllCoursesCommand}" CommandParameter="Admin" Click="CancelButtonClicked" Content="Cancel" HorizontalAlignment="Left" Height="24" Margin="20,385,0,0" VerticalAlignment="Top" Width="88"/>
 
-        <Label Content="TrainId" FontSize="10" HorizontalAlignment="Right" Margin="0,335,100,0" VerticalAlignment="Top" Width="60"/>
-        <ListBox HorizontalAlignment="Right" Height="24" Margin="0,355,100,0" VerticalAlignment="Top" Width="60"/>
-        <Label Content="Starting point" FontSize="10" HorizontalAlignment="Right" Margin="0,335,170,0" VerticalAlignment="Top" Width="80"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,355,170,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
+        <Label Content="TrainId" FontSize="10" HorizontalAlignment="Right" Margin="0,335,420,0" VerticalAlignment="Top" Width="60"/>
+        <ListBox x:Name="trainsList" SelectedValue="{Binding AdminAddCourseModel.TrainId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="73" Margin="0,355,420,0" VerticalAlignment="Top" Width="60"/>
+        <Label Content="Starting point" FontSize="10" HorizontalAlignment="Right" Margin="0,384,299,0" VerticalAlignment="Top" Width="105"/>
+        <TextBox Text="{Binding AdminAddCourseModel.StartingPoint, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,405,299,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
         <Label Content="Starts at (01.01.2022 10:10:10)" FontSize="10" HorizontalAlignment="Right" Margin="0,335,260,0" VerticalAlignment="Top" Width="140"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,355,260,0" TextWrapping="Wrap" Text="01.01.2022 10:10:10" VerticalAlignment="Top" Width="140"/>
-        <Button Content="Add course" HorizontalAlignment="Right" Height="24" Margin="0,355,20,0" VerticalAlignment="Top" Width="70"/>
+        <TextBox TextChanged="RefreshAvailableTrains" x:Name="startsAt" Text="{Binding AdminAddCourseModel.StartsAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,355,260,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
+        <Button Command="{Binding AdminAddCourseCommand}" CommandParameter="Admin" Click="SubmitButtonClicked" Content="Add course" HorizontalAlignment="Right" Height="24" Margin="0,355,20,0" VerticalAlignment="Top" Width="70"/>
         <Label Content="Costs" FontSize="10" HorizontalAlignment="Right" Margin="0,385,20,0" VerticalAlignment="Top" Width="70"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,405,20,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="70"/>
-        <Label Content="Ticket price" FontSize="10" HorizontalAlignment="Right" Margin="0,385,100,0" VerticalAlignment="Top" Width="60"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,405,100,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="60"/>
-        <Label Content="Destination" FontSize="10" HorizontalAlignment="Right" Margin="0,385,170,0" VerticalAlignment="Top" Width="80"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,405,170,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80"/>
-        <Label Content="Ends at (01.01.2022 10:10:10)" FontSize="10" HorizontalAlignment="Right" Margin="0,385,260,0" VerticalAlignment="Top" Width="140"/>
-        <TextBox HorizontalAlignment="Right" Height="24" Margin="0,405,260,0" TextWrapping="Wrap" Text="01.01.2022 10:10:10" VerticalAlignment="Top" Width="140"/>
+        <TextBox Text="{Binding AdminAddCourseModel.Costs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,405,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+        <Label Content="Ticket price" FontSize="10" HorizontalAlignment="Right" Margin="0,384,100,0" VerticalAlignment="Top" Width="60"/>
+        <TextBox Text="{Binding AdminAddCourseModel.TicketPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,405,100,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
+        <Label Content="Destination" FontSize="10" HorizontalAlignment="Right" Margin="0,384,180,0" VerticalAlignment="Top" Width="105"/>
+        <TextBox Text="{Binding AdminAddCourseModel.Destination, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,405,180,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="105"/>
+        <Label Content="Ends at (01.01.2022 10:10:10)" FontSize="10" HorizontalAlignment="Right" Margin="0,335,105,0" VerticalAlignment="Top" Width="140"/>
+        <TextBox TextChanged="RefreshAvailableTrains" x:Name="endsAt" Text="{Binding AdminAddCourseModel.EndsAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Height="24" Margin="0,355,105,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="140"/>
     </Grid>
 </UserControl>

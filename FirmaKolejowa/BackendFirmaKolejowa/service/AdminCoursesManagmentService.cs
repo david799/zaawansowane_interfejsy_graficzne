@@ -25,5 +25,12 @@ namespace BackendFirmaKolejowa.service
         {
             return companyDatabase.getTickets();
         }
+
+        Course IAdminCoursesManagmentService.addCourse(int _train_id, double _ticket_price, double _costs, bool _canceled, DateTime _starts_at, DateTime _ends_at, string _starting_point, string _destination)
+        {
+            var course = new Course(_train_id, _ticket_price, _costs, _canceled, _starts_at, _ends_at, _starting_point, _destination);
+            companyDatabase.addCourse(course);
+            return companyDatabase.getNewestCourse();
+        }
     }
 }
