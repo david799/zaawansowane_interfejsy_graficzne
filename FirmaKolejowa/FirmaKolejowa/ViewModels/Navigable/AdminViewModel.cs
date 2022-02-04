@@ -6,11 +6,11 @@ namespace FirmaKolejowa.ViewModels
     public class AdminViewModel : NavigableViewModel
     {
 
-        public ICommand OpenAdminUserListCommand { get; set; }
+        public ICommand ChangeViewCommand { get; set; }
 
         public AdminViewModel(NavigationChange navigationDelegate) : base(navigationDelegate)
         {
-            OpenAdminUserListCommand = new ChangeViewCommand(this);
+            ChangeViewCommand = new ChangeViewCommand(this);
         }
 
     }
