@@ -19,17 +19,30 @@ namespace FirmaKolejowa.Views
     /// <summary>
     /// Interaction logic for CoursesView.xaml
     /// </summary>
-    public partial class CoursesView : UserControl
+    public partial class AdminCoursesView : UserControl
     {
-        public CoursesView()
-        {
-            InitializeComponent();
-        }
-
-        public void CancelButtonClicked(object sender, RoutedEventArgs e)
+        ICompanyDatabase _database;
+        public AdminCoursesView()
         {
             DbConfig dbConfig = new DbConfig();
-            var _database = dbConfig.getCompanyDatabase();
+            _database = dbConfig.getCompanyDatabase();
+            InitializeComponent();
+        }
+        public void RefreshAvailableTrains(object sender, RoutedEventArgs e)
+        {
+            try {
+                trainsList.Items.Clear();
+                var a = _database.getTrainsAvailableAt(DateTime.Parse(startsAt.Text), DateTime.Parse(endsAt.Text));
+                foreach (var train in a)
+                {
+                    trainsList.Items.Add(train.id);
+                }
+            }
+            catch (FormatException){ }
+            
+        }
+        public void CancelButtonClicked(object sender, RoutedEventArgs e)
+        {
             var course_id = int.Parse(textBox.Text);
             var course = _database.getCourse(course_id);
             if (course == null) return;
@@ -44,5 +57,7 @@ namespace FirmaKolejowa.Views
             }
             (sender as Button).Command.Execute(null);
         }
+
+        public void SubmitButtonClicked(object sender, RoutedEventArgs e) { }
     }
 }

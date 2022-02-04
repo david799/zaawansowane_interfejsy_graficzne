@@ -23,7 +23,7 @@
             <views:AdminTrainList/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viemodels:AdminCoursesViewModel}">
-            <views:CoursesView/>
+            <views:AdminCoursesView/>
         </DataTemplate>
 
     </Application.Resources>

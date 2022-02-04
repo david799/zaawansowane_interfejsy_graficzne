@@ -11,5 +11,7 @@ namespace BackendFirmaKolejowa.service
     {
         List<Course> getAllCourses();
         List<Ticket> getAllTickets();
+
+        Course addCourse(int _train_id, double _ticket_price, double _costs, bool _canceled, DateTime _starts_at, DateTime _ends_at, string _starting_point, string _destination);
     }
 }

@@ -163,7 +163,7 @@ namespace BackendFirmaKolejowa.db.repository
             return train;
         }
 
-        public List<Train> getTrainsAvailableAt(DateTime dateTime)
+        public List<Train> getTrainsAvailableAt(DateTime startsAt, DateTime endsAt)
         {
             List<Train> trains = new List<Train>();
             using (var connection = new SqliteConnection(_connectionString))
@@ -178,11 +178,19 @@ namespace BackendFirmaKolejowa.db.repository
                     WHERE id NOT IN (
                        SELECT train_id
                        FROM COURSE
-                       WHERE $dateTimeString BETWEEN starts_at AND ends_at
+                       WHERE starts_at BETWEEN $startsAtString AND $endsAtString
+                    ) 
+                    AND id NOT IN (
+                       SELECT train_id
+                       FROM COURSE
+                       WHERE ends_at BETWEEN $startsAtString AND $endsAtString
                     )
+                    AND active == 1
                 ";
-                var dateTimeString = dateTime.ToString();//$"{dateTime.Year}-{dateTime.Month}-{dateTime.Day} {dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}";
-                command.Parameters.AddWithValue("$dateTimeString", dateTimeString);
+                var startsAtString = startsAt.ToString();//$"{dateTime.Year}-{dateTime.Month}-{dateTime.Day} {dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}";
+                var endsAtString = endsAt.ToString();//$"{dateTime.Year}-{dateTime.Month}-{dateTime.Day} {dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}";
+                command.Parameters.AddWithValue("$startsAtString", startsAtString);
+                command.Parameters.AddWithValue("$endsAtString", endsAtString);
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -352,6 +360,40 @@ namespace BackendFirmaKolejowa.db.repository
                     WHERE id = $id
                 ";
                 command.Parameters.AddWithValue("$id", _id);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var train_id = reader.GetInt32(1);
+                        var ticket_price = reader.GetDouble(2);
+                        var costs = reader.GetDouble(3);
+                        var canceled = Convert.ToBoolean(reader.GetInt32(4));
+                        var starts_at = reader.GetDateTime(5);
+                        var ends_at = reader.GetDateTime(6);
+                        var starting_point = reader.GetString(7);
+                        var destination = reader.GetString(8);
+                        course = new Course(id, train_id, ticket_price, costs, canceled, starts_at, ends_at, starting_point, destination);
+                    }
+                }
+            }
+            return course;
+        }
+
+        public Course getNewestCourse()
+        {
+            Course course = null;
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * 
+                    FROM COURSE
+                    WHERE id = (SELECT MAX(id) from COURSE)
+                ";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
