@@ -14,12 +14,13 @@ namespace BackendFirmaKolejowa.db.repository
         int deleteTrain(int id);
         List<Train> getTrains();
         Train getTrain(int _id);
-        List<Train> getTrainsAvailableAt(DateTime dateTime);
+        List<Train> getTrainsAvailableAt(DateTime startsAt, DateTime endsAt);
         int addCourse(Course course);
         int updateCourse(Course course);
         int deleteCourse(int id);
         List<Course> getCourses();
         Course getCourse(int _id);
+        Course getNewestCourse();
         int addUser(User user);
         int updateUser(User user);
         int deleteUser(int id);

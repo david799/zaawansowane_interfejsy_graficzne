@@ -37,7 +37,7 @@ CREATE TABLE "TICKET" (
 	"id"	INTEGER NOT NULL UNIQUE,
 	"course_id"	INTEGER NOT NULL,
 	"user_id"	INTEGER NOT NULL,
-	"status"	INTEGER NOT NULL,
+	"status"	INTEGER NOT NULL,    -- 1 ticket is active, 0 ticket is not active
 	PRIMARY KEY("id" AUTOINCREMENT)
 )
 
