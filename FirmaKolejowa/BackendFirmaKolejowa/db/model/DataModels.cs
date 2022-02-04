@@ -42,6 +42,11 @@ namespace BackendFirmaKolejowa.db.model
         public string starting_point;
         public string destination;
 
+        public Course()
+        {
+                
+        }
+
         public Course(int _train_id, double _ticket_price, double _costs, bool _canceled, DateTime _starts_at, DateTime _ends_at, string _starting_point, string _destination)
         {
             train_id = _train_id;
@@ -105,6 +110,10 @@ namespace BackendFirmaKolejowa.db.model
         public int user_id;
         public int status;
 
+        public Ticket()
+        {
+
+        }
         public Ticket(int _course_id, int _user_id, int _status)
         {
             course_id = _course_id;
