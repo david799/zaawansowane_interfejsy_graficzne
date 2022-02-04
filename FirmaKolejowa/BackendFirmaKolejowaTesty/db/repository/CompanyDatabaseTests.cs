@@ -3,6 +3,7 @@ using BackendFirmaKolejowa.db.repository;
 using Microsoft.Data.Sqlite;
 using NUnit.Framework;
 using System;
+using System.Linq;
 
 namespace BackendFirmaKolejowaTesty.db.repository
 {
@@ -325,5 +326,49 @@ namespace BackendFirmaKolejowaTesty.db.repository
             var tickets = _database.getTickets();
             Assert.Greater(_database.deleteTicket(tickets[tickets.Count - 1].id), 0);
         }
+
+        [Test]
+        public void ShouldReturnCoursesByTrainId()
+        {
+            var data1 = new DateTime(2022, 1, 1, 10, 10, 10);
+            var data2 = new DateTime(2022, 1, 1, 13, 10, 10);
+            var course1 = new Course(1, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
+            _database.addCourse(course1);
+
+            var course2 = new Course(2, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
+            _database.addCourse(course2);
+
+            var course3 = new Course(2, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
+            _database.addCourse(course3);
+
+            var course4 = new Course(3, 10.5, 1000.5, false, data1, data2, "Krakow", "Szczecin");
+            _database.addCourse(course4);
+
+            var coursesByTrainId = _database.getCoursesByTrainId(2);
+            Assert.AreEqual(2, coursesByTrainId.Count);
+            Assert.AreEqual(true, coursesByTrainId.All(course => course.train_id == 2));
+        }
+
+        [Test]
+        public void ShouldReturnTicketsForCourse()
+        {
+            var ticket1 = new Ticket(1, 1, 1);
+            _database.addTicket(ticket1);
+
+            var ticket2 = new Ticket(2, 1, 1);
+            _database.addTicket(ticket2);
+
+            var ticket3 = new Ticket(3, 1, 1);
+            _database.addTicket(ticket3);
+
+            var ticket4 = new Ticket(3, 1, 1);
+            _database.addTicket(ticket4);
+
+            var ticketsForCourse = _database.getTicketsForCourse(3);
+
+            Assert.AreEqual(2, ticketsForCourse.Count);
+            Assert.AreEqual(true, ticketsForCourse.All(ticket => ticket.course_id == 3));
+        }
+
     }
 }

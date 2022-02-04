@@ -17,9 +17,9 @@ namespace BackendFirmaKolejowa.service
 
         public void activateTrain(int trainId)
         {
-            var trainToDeactivate = companyDatabase.getTrain(trainId);
-            trainToDeactivate.is_active = true;
-            companyDatabase.updateTrain(trainToDeactivate);
+            var trainToActivate = companyDatabase.getTrain(trainId);
+            trainToActivate.is_active = true;
+            companyDatabase.updateTrain(trainToActivate);
         }
 
         public void deactivateTrain(int trainId)
