@@ -10,5 +10,7 @@ namespace BackendFirmaKolejowa.service
     public interface IAdminTrainManagementService
     {
         List<Train> getAllTrains();
+        void deactivateTrain(int trainId);
+        void activateTrain(int trainId);
     }
 }

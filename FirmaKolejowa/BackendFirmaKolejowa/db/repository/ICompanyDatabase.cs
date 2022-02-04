@@ -19,6 +19,7 @@ namespace BackendFirmaKolejowa.db.repository
         int updateCourse(Course course);
         int deleteCourse(int id);
         List<Course> getCourses();
+        List<Course> getCoursesByTrainId(int trainId);
         Course getCourse(int _id);
         Course getNewestCourse();
         int addUser(User user);
@@ -31,6 +32,7 @@ namespace BackendFirmaKolejowa.db.repository
         int updateTicket(Ticket ticket);
         int deleteTicket(int id);
         List<Ticket> getTickets();
+        List<Ticket> getTicketsForCourse(int courseId);
         Ticket getTicket(int _id);
 
     }

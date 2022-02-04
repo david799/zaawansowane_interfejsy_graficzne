@@ -346,6 +346,41 @@ namespace BackendFirmaKolejowa.db.repository
             return courses;
         }
 
+
+        public List<Course> getCoursesByTrainId(int trainId)
+        {
+            List<Course> courses = new List<Course>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM COURSE WHERE TRAIN_ID = $id
+                ";
+                command.Parameters.AddWithValue("$id", trainId);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var train_id = reader.GetInt32(1);
+                        var ticket_price = reader.GetDouble(2);
+                        var costs = reader.GetDouble(3);
+                        var canceled = Convert.ToBoolean(reader.GetInt32(4));
+                        var starts_at = reader.GetDateTime(5);
+                        var ends_at = reader.GetDateTime(6);
+                        var starting_point = reader.GetString(7);
+                        var destination = reader.GetString(8);
+                        courses.Add(new Course(id, train_id, ticket_price, costs, canceled, starts_at, ends_at, starting_point, destination));
+                    }
+                }
+            }
+            return courses;
+        }
+
         public Course getCourse(int _id)
         {
             Course course = null;
@@ -704,6 +739,34 @@ namespace BackendFirmaKolejowa.db.repository
                     SELECT * FROM TICKET
                 ";
 
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var course_id = reader.GetInt32(1);
+                        var user_id = reader.GetInt32(2);
+                        var status = reader.GetInt32(3);
+                        tickets.Add(new Ticket(id, course_id, user_id, status));
+                    }
+                }
+            }
+            return tickets;
+        }
+
+        public List<Ticket> getTicketsForCourse(int courseId)
+        {
+            List<Ticket> tickets = new List<Ticket>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM TICKET WHERE COURSE_ID= $id
+                ";
+                command.Parameters.AddWithValue("$id", courseId);
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
