@@ -55,6 +55,10 @@ namespace FirmaKolejowa.ViewModels
                     var buyTicketViewModel = new BuyTicketViewModel(_database, NavigationChangeEvent);
                     SelectedViewModel = buyTicketViewModel;
                     break;
+                case "TicketsList":
+                    var ticketsList = new TicketsListViewModel(NavigationChangeEvent);
+                    SelectedViewModel = ticketsList;
+                    break;
                 default:
                     break;
             }
