@@ -30,10 +30,16 @@ namespace FirmaKolejowa.Views
         }
         public void RefreshAvailableTrains(object sender, RoutedEventArgs e)
         {
+            if (startsAt.Text == null || endsAt.Text == null || startsAt.Text == "" || endsAt.Text == "")
+                return;
+            var a = startsAt.Text.Split("/");
+            var b = endsAt.Text.Split("/");
+            var c = a[1] + "/" + a[0] + "/" + a[2];
+            var d = b[1] + "/" + b[0] + "/" + b[2];
             try {
                 trainsList.Items.Clear();
-                var a = _database.getTrainsAvailableAt(DateTime.Parse(startsAt.Text), DateTime.Parse(endsAt.Text));
-                foreach (var train in a)
+                var f = _database.getTrainsAvailableAt(DateTime.Parse(c), DateTime.Parse(d));
+                foreach (var train in f)
                 {
                     trainsList.Items.Add(train.id);
                 }
