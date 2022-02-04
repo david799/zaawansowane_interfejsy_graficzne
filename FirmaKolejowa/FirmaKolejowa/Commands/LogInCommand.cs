@@ -13,6 +13,7 @@ namespace FirmaKolejowa.Commands
         private LoginViewModel loginViewModel;
         private ILoginService loginService;
 
+
         public LogInCommand(LoginViewModel loginViewModel)
         {
             this.loginViewModel = loginViewModel;
@@ -34,7 +35,11 @@ namespace FirmaKolejowa.Commands
             try
             {
                 var user = loginService.logIn(username, password);
-                if(user.isAdmin)
+                loginViewModel.LoginModel.Currentuser = user;
+                Global.Instance.UserName = user.name;
+                Global.Instance.UserId = user.id;
+                Global.Instance.IsLogged = true;
+                if (user.isAdmin)
                 {
                     loginViewModel.OnNavigationChange("Admin");
                 } else

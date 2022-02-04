@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BackendFirmaKolejowa.db.model;
+using FirmaKolejowa.ViewModels;
 
 namespace FirmaKolejowa.Model
 {
@@ -12,14 +14,24 @@ namespace FirmaKolejowa.Model
 
         private string username;
         private string password;
-
+        public User currentuser;
         public string Username
         {
             get { return username; }
             set
             {
-                username = value;
+               username = value;
                 OnPropertyChanged("Username");
+            }
+        }
+
+        public User Currentuser
+        {
+            get { return currentuser; }
+            set
+            {
+                currentuser = value;
+                OnPropertyChanged("Currentuser");
             }
         }
 

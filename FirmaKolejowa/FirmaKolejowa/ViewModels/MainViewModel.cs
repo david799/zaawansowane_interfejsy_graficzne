@@ -1,5 +1,6 @@
 ﻿using BackendFirmaKolejowa.Configuration;
 using BackendFirmaKolejowa.db.repository;
+using BackendFirmaKolejowa.db.model;
 
 namespace FirmaKolejowa.ViewModels
 {
@@ -8,7 +9,6 @@ namespace FirmaKolejowa.ViewModels
 
         private BaseViewModel _selectedModel;
         private ICompanyDatabase _database;
-
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedModel; }
