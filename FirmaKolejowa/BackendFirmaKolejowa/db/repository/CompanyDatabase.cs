@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using BackendFirmaKolejowa.db.model;
 using Microsoft.Data.Sqlite;
@@ -334,11 +335,11 @@ namespace BackendFirmaKolejowa.db.repository
                         var ticket_price = reader.GetDouble(2);
                         var costs = reader.GetDouble(3);
                         var canceled = Convert.ToBoolean(reader.GetInt32(4));
-                        var starts_at = reader.GetDateTime(5);
-                        var ends_at = reader.GetDateTime(6);
+                        var starts_at = reader.GetString(5);
+                        var ends_at = reader.GetString(6);
                         var starting_point = reader.GetString(7);
                         var destination = reader.GetString(8);
-                        courses.Add(new Course(id, train_id, ticket_price, costs, canceled, starts_at, ends_at, starting_point, destination));
+                        courses.Add(new Course(id, train_id, ticket_price, costs, canceled, DateTime.Parse(starts_at, CultureInfo.GetCultureInfo("pl-PL").DateTimeFormat), DateTime.Parse(ends_at, CultureInfo.GetCultureInfo("pl-PL").DateTimeFormat), starting_point, destination));
                     }
                 }
 
@@ -438,11 +439,16 @@ namespace BackendFirmaKolejowa.db.repository
                         var ticket_price = reader.GetDouble(2);
                         var costs = reader.GetDouble(3);
                         var canceled = Convert.ToBoolean(reader.GetInt32(4));
-                        var starts_at = reader.GetDateTime(5);
-                        var ends_at = reader.GetDateTime(6);
+                        var starts_at = reader.GetString(5);
+                        var ends_at = reader.GetString(6);
                         var starting_point = reader.GetString(7);
                         var destination = reader.GetString(8);
-                        course = new Course(id, train_id, ticket_price, costs, canceled, starts_at, ends_at, starting_point, destination);
+                        //var starts_at2 = starts_at
+                        //var a = startsAt.Text.Split("/");
+                        //var b = endsAt.Text.Split("/");
+                        //var c = a[1] + "/" + a[0] + "/" + a[2];
+                        //var d = b[1] + "/" + b[0] + "/" + b[2];
+                        course = new Course(id, train_id, ticket_price, costs, canceled, DateTime.Parse(starts_at, CultureInfo.GetCultureInfo("pl-PL").DateTimeFormat), DateTime.Parse(ends_at, CultureInfo.GetCultureInfo("pl-PL").DateTimeFormat), starting_point, destination);
                     }
                 }
             }

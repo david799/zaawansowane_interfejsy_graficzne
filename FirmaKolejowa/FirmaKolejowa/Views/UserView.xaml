@@ -10,7 +10,5 @@
         <TextBlock HorizontalAlignment="Center" Height="36" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="414" TextAlignment="Center" FontSize="20"><Run Language="pl-pl" Text="User Panel"/></TextBlock>
         <Button Command="{Binding ChangeViewCommand}" CommandParameter="BuyTicket" Content="Buy ticket" HorizontalAlignment="Center" Height="27" Margin="0,118,0,0" VerticalAlignment="Top" Width="133"/>
         <Button Command="{Binding ChangeViewCommand}" CommandParameter="TicketsList" Content="User's tickets" HorizontalAlignment="Center" Height="27" Margin="0,170,0,0" VerticalAlignment="Top" Width="133"/>
-
-
     </Grid>
 </UserControl>
