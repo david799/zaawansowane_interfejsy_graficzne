@@ -51,6 +51,10 @@ namespace FirmaKolejowa.ViewModels
                     var coursesViewModel = new AdminCoursesViewModel(_database, NavigationChangeEvent);
                     SelectedViewModel = coursesViewModel;
                     break;
+                case "BuyTicket":
+                    var buyTicketViewModel = new BuyTicketViewModel(_database, NavigationChangeEvent);
+                    SelectedViewModel = buyTicketViewModel;
+                    break;
                 default:
                     break;
             }
