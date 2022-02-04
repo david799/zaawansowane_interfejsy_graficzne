@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:FirmaKolejowa"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="900">
-    <Grid Width="800" Height="450">
+    <Grid Margin="50,0,0,17">
+        <Label Content="{Binding Source={x:Static local:Global.Instance},
+                        Path=UserName}" HorizontalAlignment="Left" Height="33
+               " Margin="752,0,0,0" VerticalAlignment="Top" Width="98"/>
         <ContentControl Content="{Binding SelectedViewModel}" Height="450" Width="800"/>
+        <Label Content="Welcome " HorizontalAlignment="Left" Height="33" Margin="697,0,0,0" VerticalAlignment="Top" Width="60"/>
+        
     </Grid>
 </Window>

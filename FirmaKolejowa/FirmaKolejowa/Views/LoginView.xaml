@@ -9,7 +9,7 @@
     <Grid>
         <Label Content="Username" HorizontalAlignment="Left" Height="23" Margin="236,174,0,0" VerticalAlignment="Top" Width="87"/>
         <Label Content="Password&#xD;&#xA;" HorizontalAlignment="Left" Height="23" Margin="236,202,0,0" VerticalAlignment="Top" Width="87"/>
-
+        
         <Button Content="Log in" Margin="236,304,0,0"
                Command="{Binding LogInCommand}" HorizontalAlignment="Left" Width="328" Height="22" VerticalAlignment="Top"/>
         <TextBox Text="{Binding LoginModel.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Height="23" Margin="323,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241"/>
