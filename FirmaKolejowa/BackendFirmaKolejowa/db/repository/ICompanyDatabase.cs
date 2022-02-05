@@ -35,5 +35,7 @@ namespace BackendFirmaKolejowa.db.repository
         List<Ticket> getTicketsForCourse(int courseId);
         Ticket getTicket(int _id);
 
+        public List<Ticket> getTicketsForUser(int userID);
+
     }
 }
