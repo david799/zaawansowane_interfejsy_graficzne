@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type viemodels:BuyTicketViewModel}">
             <views:BuyTicketView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viemodels:TicketsListViewModel}">
+            <views:TicketsListView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

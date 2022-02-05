@@ -788,6 +788,34 @@ namespace BackendFirmaKolejowa.db.repository
             return tickets;
         }
 
+        public List<Ticket> getTicketsForUser(int userId)
+        {
+            List<Ticket> tickets = new List<Ticket>();
+            using (var connection = new SqliteConnection(_connectionString))
+            {
+                connection.Open();
+
+                var command = connection.CreateCommand();
+                command.CommandText =
+                @"
+                    SELECT * FROM TICKET WHERE USER_ID=$id
+                ";
+                command.Parameters.AddWithValue("$id", userId);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var id = reader.GetInt32(0);
+                        var course_id = reader.GetInt32(1);
+                        var user_id = reader.GetInt32(2);
+                        var status = reader.GetInt32(3);
+                        tickets.Add(new Ticket(id, course_id, user_id, status));
+                    }
+                }
+            }
+            return tickets;
+        }
+
         public Ticket getTicket(int _id)
         {
             Ticket ticket = null;
