@@ -12,6 +12,8 @@ namespace FirmaKolejowa.Model
         private int id;
         private string startingPoint;
         private string destination;
+        private DateTime startsAt;
+        private DateTime endsAt;   
         private string status;
 
         public int Id
@@ -41,6 +43,26 @@ namespace FirmaKolejowa.Model
             {
                 destination = value;
                 OnPropertyChanged("Destination");
+            }
+        }
+
+        public DateTime StartsAt
+        {
+            get { return startsAt; }
+            set
+            {
+                startsAt = value;
+                OnPropertyChanged("StartsAt");
+            }
+        }
+
+        public DateTime EndsAt
+        {
+            get { return endsAt; }
+            set
+            {
+                endsAt = value;
+                OnPropertyChanged("EndsAt");
             }
         }
 

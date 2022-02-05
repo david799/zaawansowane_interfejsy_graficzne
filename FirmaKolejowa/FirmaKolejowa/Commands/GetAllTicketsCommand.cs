@@ -39,9 +39,19 @@ namespace FirmaKolejowa.Commands
             return ticketsManagementService.getCourse(courseId).destination;
         }
 
+        public DateTime GetStartsAt(int courseId)
+        {
+            return ticketsManagementService.getCourse(courseId).starts_at;
+        }
+
+        public DateTime GetEndsAt(int courseId)
+        {
+            return ticketsManagementService.getCourse(courseId).ends_at;
+        }
+
         public void Execute(object? parameter)
         {
-            var courseModelList = ticketsManagementService.getTicketsForUser(Global.Instance.UserId).Select(dbCourse => new AllTicketsListElementModel() { Id = dbCourse.id, StartingPoint = GetStartingPoint(dbCourse.course_id), Destination = GetDestination(dbCourse.course_id), Status = dbCourse.status == 1 ? "Active" : "Not active"});
+            var courseModelList = ticketsManagementService.getTicketsForUser(Global.Instance.UserId).Select(dbCourse => new AllTicketsListElementModel() { Id = dbCourse.id, StartingPoint = GetStartingPoint(dbCourse.course_id), Destination = GetDestination(dbCourse.course_id), StartsAt = GetStartsAt(dbCourse.course_id), EndsAt = GetEndsAt(dbCourse.course_id), Status = dbCourse.status == 1 ? "Active" : "Not active"});
 
             ticketsListViewModel.Tickets.Clear();
             foreach (var courseModel in courseModelList)
