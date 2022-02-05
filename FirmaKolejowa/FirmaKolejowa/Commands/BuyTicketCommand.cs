@@ -25,7 +25,7 @@ namespace FirmaKolejowa.Commands
 
         public void Execute(object? parameter)
         {
-            ticketService.buyTicket(7, buyTicketViewModel.SelectedCourse.Id);
+            ticketService.buyTicket(Global.Instance.UserId, buyTicketViewModel.SelectedCourse.Id);
             buyTicketViewModel.SelectedCourse = null;
             buyTicketViewModel.GetAvailableCoursesCommand.Execute(null);
         }
