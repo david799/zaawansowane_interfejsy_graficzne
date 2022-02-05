@@ -59,6 +59,13 @@ namespace FirmaKolejowa.ViewModels
                     var ticketsList = new TicketsListViewModel(NavigationChangeEvent);
                     SelectedViewModel = ticketsList;
                     break;
+                case "Login":
+                    Global.Instance.IsLogged = false;
+                    Global.Instance.UserName = "Guest";
+                    Global.Instance.UserId = 0;
+                    var LoginViewModel = new LoginViewModel(_database, NavigationChangeEvent);
+                    SelectedViewModel = LoginViewModel;
+                    break;
                 default:
                     break;
             }
